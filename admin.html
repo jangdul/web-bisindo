@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Data Peserta</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 12px; text-align: left; }
+        th { background-color: #0056b3; color: white; }
+        .nav-back { display: block; margin-top: 20px; color: #d9534f; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Data Peserta Belajar Bahasa Isyarat</h2>
+    <p>Daftar pengguna yang telah melakukan registrasi.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Peserta</th>
+                <th>Asal / Instansi</th>
+                <th>Tanggal Daftar</th>
+            </tr>
+        </thead>
+        <tbody id="tabelPeserta">
+            </tbody>
+    </table>
+
+    <a href="index.html" class="nav-back">Kembali ke Login</a>
+</div>
+
+<script>
+    // Mengambil data dari localStorage
+    const users = JSON.parse(localStorage.getItem('pesertaIsyarat')) || [];
+    const tbody = document.getElementById('tabelPeserta');
+
+    if (users.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>Belum ada peserta yang mendaftar.</td></tr>";
+    } else {
+        users.forEach((user, index) => {
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${user.nama}</td>
+                <td>${user.asal}</td>
+                <td>${user.tanggal}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+</script>
+
+</body>
+</html>
