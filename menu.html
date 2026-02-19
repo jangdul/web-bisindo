@@ -7,10 +7,33 @@
 <body>
     <div class="container">
         <h2>Menu Video Pembelajaran BISINDO</h2>
-        
-        <button onclick="bukaVideo('video1')">Video Abjad A-Z</button>
-        <button onclick="bukaVideo('video2')">Video Angka 1-10</button>
-        <button onclick="bukaVideo('video3')">Video Percakapan Dasar</button>
+
+        <!-- MENU DENGAN SUBMENU -->
+        <div class="dropdown">
+            <button class="dropbtn">Abjad A-Z</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="bukaVideo('abjad1')">Abjad A-M</a>
+                <a href="#" onclick="bukaVideo('abjad2')">Abjad N-Z</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Angka</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="bukaVideo('angka1')">Angka 1-5</a>
+                <a href="#" onclick="bukaVideo('angka2')">Angka 6-10</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Percakapan</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="bukaVideo('salam')">Salam</a>
+                <a href="#" onclick="bukaVideo('perkenalan')">Perkenalan</a>
+            </div>
+        </div>
+
+        <br><br>
 
         <div id="videoContainer"></div>
 
