@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Belajar Bahasa Isyarat</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background-color: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #004494; }
+        .toggle-link { color: #0056b3; cursor: pointer; font-size: 14px; margin-top: 15px; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="loginBox">
+    <h2>Login Peserta</h2>
+    <input type="text" id="loginName" placeholder="Nama Lengkap">
+    <button onclick="login()">Masuk</button>
+    <span class="toggle-link" onclick="toggleForm()">Belum punya akun? Daftar di sini</span>
+</div>
+
+<div class="container" id="registerBox" style="display:none;">
+    <h2>Daftar Peserta Baru</h2>
+    <input type="text" id="regName" placeholder="Nama Lengkap">
+    <input type="text" id="regAsal" placeholder="Asal Instansi/Kota (Misal: Cianjur)">
+    <button onclick="register()">Daftar</button>
+    <span class="toggle-link" onclick="toggleForm()">Sudah punya akun? Login di sini</span>
+</div>
+
+<script>
+    function toggleForm() {
+        const loginBox = document.getElementById('loginBox');
+        const registerBox = document.getElementById('registerBox');
+        if (loginBox.style.display === 'none') {
+            loginBox.style.display = 'block';
+            registerBox.style.display = 'none';
+        } else {
+            loginBox.style.display = 'none';
+            registerBox.style.display = 'block';
+        }
+    }
+
+    function register() {
+        const name = document.getElementById('regName').value;
+        const asal = document.getElementById('regAsal').value;
+        if (!name || !asal) return alert("Harap isi semua data!");
+
+        let users = JSON.parse(localStorage.getItem('pesertaIsyarat')) || [];
+        users.push({ nama: name, asal: asal, tanggal: new Date().toLocaleDateString('id-ID') });
+        localStorage.setItem('pesertaIsyarat', JSON.stringify(users));
+        
+        alert("Pendaftaran berhasil! Silakan login.");
+        toggleForm();
+    }
+
+    function login() {
+        const name = document.getElementById('loginName').value;
+        let users = JSON.parse(localStorage.getItem('pesertaIsyarat')) || [];
+        
+        // Admin bypass
+        if(name === "admin") {
+            window.location.href = "admin.html";
+            return;
+        }
+
+        const validUser = users.find(u => u.nama.toLowerCase() === name.toLowerCase());
+        if (validUser) {
+            alert("Selamat datang, " + validUser.nama + "!");
+            window.location.href = "menu.html";
+        } else {
+            alert("Nama tidak ditemukan. Silakan daftar terlebih dahulu.");
+        }
+    }
+</script>
+
+</body>
+</html>
